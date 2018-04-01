@@ -45,6 +45,7 @@
     <orderEntry type="library" scope="PROVIDED" name="devise (v4.3.0, rbenv: 2.4.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="devise_token_auth (v0.1.42, rbenv: 2.4.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="erubi (v1.7.1, rbenv: 2.4.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faker (v1.8.7, rbenv: 2.4.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ffi (v1.9.23, rbenv: 2.4.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="globalid (v0.4.1, rbenv: 2.4.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="hashie (v3.5.7, rbenv: 2.4.3) [gem]" level="application" />

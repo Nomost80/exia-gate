@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+classes = ['A1', 'A2', 'A3', 'A4', 'A5', 'tuteur']
+
+10.times do
+
+end
