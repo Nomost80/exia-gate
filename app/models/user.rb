@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :notifications
   has_many :comments
   has_many :rates
+  has_many :votes
   has_and_belongs_to_many :followed_clubs, class_name: "Club"
   has_and_belongs_to_many :belong_clubs, class_name: "Club"
 end

@@ -11,6 +11,7 @@ class FormController extends PureComponent {
     children: oneOfType([node, arrayOf(node)]).isRequired,
     form: object.isRequired,
     reset: bool,
+    modal: bool,
     ...formPropsTypes
   };
 
@@ -39,7 +40,7 @@ class FormController extends PureComponent {
         help: get(this.props.errors, field.props.name, '')
       });
     }
-    else if (field.type === Form.Group) {
+    else if (field.type === Input.Group) {
       const childrens = Children.map(field.props.children, this.renderField);
       return cloneElement(field, {}, childrens);
     }
@@ -59,6 +60,9 @@ class FormController extends PureComponent {
           <Button type="primary" onClick={this.reset}>
             Effacer
           </Button>
+        }
+        {loading &&
+          <Spin indicator={<Icon type="loading" spin/>} />
         }
       </Form>
     );

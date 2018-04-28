@@ -14,8 +14,6 @@ export const controlPropsTypes = {
   label: string,
   name: string.isRequired,
   placeholder: string,
-  onChange: func.isRequired,
-  value: any.isRequired,
   error: bool
 };
 
