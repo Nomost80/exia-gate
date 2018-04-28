@@ -1,36 +1,32 @@
 import React, { PureComponent, Children, cloneElement } from 'react';
 import { object, node, oneOfType, arrayOf, bool } from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { Form, Message } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
+import { Form, Button } from 'antd';
 import { get, entries, some, has } from 'lodash';
-import { formPropsTypes } from "../../props";
-import FieldTypes from './Fields';
+import { formPropsTypes } from "../props";
+import FieldTypes from '../shared/forms/Fields';
 
-//todo validation client
 class FormController extends PureComponent {
   static propTypes = {
-    history: object.isRequired,
     children: oneOfType([node, arrayOf(node)]).isRequired,
-    submit: bool,
+    form: object.isRequired,
     reset: bool,
     ...formPropsTypes
   };
 
-  initialState = { ...this.props.data };
+  handleSubmit = () => {
+    this.props.form.validateFields((err, values) => {
+      if (!err)
+        this.props.onSubmit(values);
+    })
+  };
 
-  state = this.initialState;
-
-  handleChange = (e, { name, value }) =>
-    this.setState({...this.state, [name]: value});
-
-  handleSubmit = () =>
-    this.props.onSubmit(this.state).then(this.redirect);
-
-  reset = () => this.setState(this.initialState);
+  reset = () => this.props.form.resetFields();
 
   redirect = () => {
-    const { history, redirect } = this.props;
-    if (redirect) history.push(history);
+    const { submited, redirect } = this.props;
+    if (submited && redirect)
+      return <Redirect to={redirect} />
   };
 
   renderField = field => {
@@ -39,7 +35,8 @@ class FormController extends PureComponent {
       return cloneElement(field, {
         onChange: this.handleChange,
         value: get(this.state, field.props.name, field.props.value),
-        error: has(this.props.errors, field.props.name)
+        validateStatus: has(this.props.errors, field.props.name) ? 'error' : '',
+        help: get(this.props.errors, field.props.name, '')
       });
     }
     else if (field.type === Form.Group) {
@@ -50,33 +47,22 @@ class FormController extends PureComponent {
   };
 
   render() {
-    const { children, submit, reset, loading, errors } = this.props;
+    const { children, reset, loading } = this.props;
 
     return (
-      <Form loading={loading}>
-        {errors &&
-          <Message error header="Echec de la validation" list={entries(errors)}/>
-        }
+      <Form onSubmit={this.handleSubmit}>
         {Children.map(children, this.renderField)}
-        {submit &&
-          <Form.Button
-            type="submit"
-            positive={true}
-            content="Valider"
-            onClick={this.handleSubmit}
-          />
-        }
+        <Button type="primary" htmlType="submit">
+          Valider
+        </Button>
         {reset &&
-          <Form.Button
-            type="reset"
-            negative={true}
-            content="Reset"
-            onClick={this.reset}
-          />
+          <Button type="primary" onClick={this.reset}>
+            Effacer
+          </Button>
         }
       </Form>
     );
   }
 }
 
-export default withRouter(FormController);
+export default Form.create({})(FormController);

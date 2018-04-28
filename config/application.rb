@@ -35,7 +35,10 @@ module ExiaGate
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post, :options, :put, :patch, :delete]
+        resource '*',
+          headers: :any,
+          expose: %w(access-token expiry token-type uid client),
+          methods: [:get, :post, :options, :delete, :put]
       end
     end
   end

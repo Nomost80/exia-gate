@@ -1,11 +1,9 @@
 module Error::Exceptions
   class Custom < StandardError
-    attr_reader :status, :error, :message
+    attr_reader :error
 
-    def initialize(status, error, message = nil)
-      @status = status
+    def initialize(error)
       @error = error
-      @message = message || 'Something went wrong'
     end
   end
 end

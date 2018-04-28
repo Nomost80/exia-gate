@@ -1,8 +1,8 @@
-import { NOTIFICATION_ADDED } from "../actions/messageActions";
+import { ADD_NOTIFICATION } from "../actions/messageActions";
 
 const messageReducer = (state = [], action) => {
   switch (action.type) {
-    case NOTIFICATION_ADDED:
+    case ADD_NOTIFICATION:
       return [...state, action.message];
     default:
       return state;

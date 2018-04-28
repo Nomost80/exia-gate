@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import events from './eventReducer';
 import messages from './messageReducer';
+import errors from './errorReducer';
+import events from './eventReducer';
 
 export default combineReducers({
+  messages,
+  errors,
   events,
-  messages
 });

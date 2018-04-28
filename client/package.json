@@ -22,8 +22,11 @@
     "styled-components": "^3.1.6"
   },
   "devDependencies": {
+    "enzyme": "^3.3.0",
+    "nock": "^9.2.5",
     "prop-types": "^15.6.1",
-    "redux-devtools-extension": "^2.13.2"
+    "redux-devtools-extension": "^2.13.2",
+    "redux-mock-store": "^1.5.1"
   },
   "scripts": {
     "start": "react-scripts start",

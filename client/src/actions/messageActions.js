@@ -1,6 +1,6 @@
-export const NOTIFICATION_ADDED = 'NOTIFICATION_ADDED';
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
 
 export const notify = message => ({
-  type: NOTIFICATION_ADDED,
+  type: ADD_NOTIFICATION,
   message
 });
