@@ -1,20 +1,10 @@
 import React, { PureComponent, Children, cloneElement } from 'react';
-import { object, node, oneOfType, arrayOf, bool } from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { Form, Button } from 'antd';
-import { get, entries, some, has } from 'lodash';
-import { formPropsTypes } from "../props";
-import FieldTypes from '../shared/forms/Fields';
+import { Form, Button, Progress } from 'antd';
 
 class FormController extends PureComponent {
-  static propTypes = {
-    children: oneOfType([node, arrayOf(node)]).isRequired,
-    form: object.isRequired,
-    reset: bool,
-    ...formPropsTypes
-  };
-
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err)
         this.props.onSubmit(values);
@@ -29,25 +19,19 @@ class FormController extends PureComponent {
       return <Redirect to={redirect} />
   };
 
+  // faire le map props to field
   renderField = field => {
     if (!field) return null; // un champ conditionnel pas validé
-    else if (some(FieldTypes, fieldType => field.type === fieldType)) {
-      return cloneElement(field, {
-        onChange: this.handleChange,
-        value: get(this.state, field.props.name, field.props.value),
-        validateStatus: has(this.props.errors, field.props.name) ? 'error' : '',
-        help: get(this.props.errors, field.props.name, '')
-      });
+
+    else if (field.type === Form.Item) {
+      return cloneElement(field, { form: this.props.form });
     }
-    else if (field.type === Form.Group) {
-      const childrens = Children.map(field.props.children, this.renderField);
-      return cloneElement(field, {}, childrens);
-    }
+
     return cloneElement(field, {style: {margin: '0 0 1em'}});
   };
 
   render() {
-    const { children, reset, loading } = this.props;
+    const { children, reset, progress } = this.props;
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -57,12 +41,17 @@ class FormController extends PureComponent {
         </Button>
         {reset &&
           <Button type="primary" onClick={this.reset}>
-            Effacer
+            Reset
           </Button>
         }
+        {progress && <Progress percent={progress}/>}
       </Form>
     );
   }
 }
+
+const mapPropsToField = props => ({
+
+});
 
 export default Form.create({})(FormController);
