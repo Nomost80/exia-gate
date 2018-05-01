@@ -1,8 +1,8 @@
 import { CLEAR_ERRORS } from "../actions/errorActions";
 
-export default (state = null, { type, errors }) => {
-  if (type.includes('FAILURE') && errors) {
-    return errors;
+export default (state = null, { type, payload }) => {
+  if (type.includes('FAILURE') && payload) {
+    return payload;
   }
 
   else if (type === CLEAR_ERRORS)

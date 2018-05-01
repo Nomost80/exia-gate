@@ -2,12 +2,11 @@ import * as Rx from 'rxjs';
 import { normalize } from 'normalizr';
 import { camelizeKeys, decamelizeKeys } from 'humps';
 
-// dispatch action et mettre un "delay" dans l'epic correspondant
-const progressObserver = Rx.Observable.create(
-  e => e.loaded / e.total,
-  err => console.log(err),
-  () => console.log('Ajax request completed')
-);
+// const progressObserver = Rx.Observable.create(
+//   e => e.loaded / e.total,
+//   err => console.log(err),
+//   () => console.log('Ajax request completed')
+// );
 
 const ajax = ({ auth, body, ...settings }, schema, method) => {
   const ajaxSettings = {
@@ -19,8 +18,7 @@ const ajax = ({ auth, body, ...settings }, schema, method) => {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`
     }},
     method,
-    responseType: 'json',
-    progressObserver
+    responseType: 'json'
   };
 
   return Rx.Observable.ajax(ajaxSettings)

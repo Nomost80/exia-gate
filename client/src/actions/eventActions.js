@@ -1,75 +1,22 @@
+import makeActionCreator from './makeActionCreator';
 import * as types from './types/eventActionTypes';
 
-export const fetchEvents = () => ({
-  type: types.FETCH_EVENTS_REQUEST
-});
+export const fetchEvents = makeActionCreator(types.FETCH_EVENTS_REQUEST);
+export const fetchEventsFulfilled = makeActionCreator(types.FETCH_EVENTS_FULFILLED);
+export const fetchEventsFailure = makeActionCreator(types.FETCH_EVENTS_FAILURE);
 
-export const fetchEventsFulfilled = response => ({
-  type: types.FETCH_EVENTS_FULFILLED,
-  response
-});
+export const fetchEvent = makeActionCreator(types.FETCH_EVENT_REQUEST, 'id');
+export const fetchEventFulfilled = makeActionCreator(types.FETCH_EVENT_FULFILLED);
+export const fetchEventFailure = makeActionCreator(types.FETCH_EVENT_FAILURE);
 
-export const fetchEventsFailure = response => ({
-  type: types.FETCH_EVENTS_FAILURE,
-  response
-});
+export const createEvent = makeActionCreator(types.CREATE_EVENT_REQUEST, 'event');
+export const createEventFulfilled = makeActionCreator(types.CREATE_EVENT_FULFILLED);
+export const createEventFailure = makeActionCreator(types.CREATE_EVENT_FAILURE);
 
-export const fetchEvent = id => ({
-  type: types.FETCH_EVENT_REQUEST,
-  id
-});
+export const updateEvent = makeActionCreator(types.UPDATE_EVENT_REQUEST, 'event');
+export const updateEventFulfilled = makeActionCreator(types.UPDATE_EVENT_FULFILLED);
+export const updateEventFailure = makeActionCreator(types.UPDATE_EVENT_FAILURE);
 
-export const fetchEventFulfilled = response => ({
-  type: types.FETCH_EVENT_FULFILLED,
-  response
-});
-
-export const fetchEventFailure = response => ({
-  type: types.FETCH_EVENT_FAILURE,
-  response
-});
-
-export const createEvent = event => ({
-  type: types.CREATE_EVENT_REQUEST,
-  event
-});
-
-export const createEventFulfilled = response => ({
-  type: types.CREATE_EVENT_FULFILLED,
-  response
-});
-
-export const createEventFailure = response => ({
-  type: types.CREATE_EVENT_FAILURE,
-  response
-});
-
-export const updateEvent = event => ({
-  type: types.UPDATE_EVENT_REQUEST,
-  event
-});
-
-export const updateEventFulfilled = response => ({
-  type: types.UPDATE_EVENT_FULFILLED,
-  response
-});
-
-export const updateEventFailure = response => ({
-  type: types.UPDATE_EVENT_FAILURE,
-  response
-});
-
-export const deleteEvent = id => ({
-  type: types.DELETE_EVENT_REQUEST,
-  id
-});
-
-export const deleteEventFulfilled = response => ({
-  type: types.DELETE_EVENT_FULFILLED,
-  response
-});
-
-export const deleteEventFailure = response => ({
-  type: types.DELETE_EVENT_FAILURE,
-  response
-});
+export const deleteEvent = makeActionCreator(types.DELETE_EVENT_REQUEST, 'id');
+export const deleteEventFulfilled = makeActionCreator(types.DELETE_EVENT_FULFILLED);
+export const deleteEventFailure = makeActionCreator(types.DELETE_EVENT_FAILURE);

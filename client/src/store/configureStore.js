@@ -1,7 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
+import { routerMiddleware } from 'react-router-redux'
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { of } from 'rxjs/observable/of';
+import history from '../history';
 import rootReducer from '../reducers';
 import rootEpic from '../epics';
 import ajax from '../utils/ajax';
@@ -18,7 +20,7 @@ export default initialState => (
     rootReducer,
     initialState,
     composeWithDevTools(
-      applyMiddleware(errorMiddleware, epicMiddleware)
+      applyMiddleware(errorMiddleware, epicMiddleware, routerMiddleware(history))
     )
   )
 );

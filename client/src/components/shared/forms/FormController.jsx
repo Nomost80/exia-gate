@@ -1,6 +1,6 @@
 import React, { PureComponent, Children, cloneElement } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Form, Button, Progress } from 'antd';
+import { Form, Button, Spin } from 'antd';
 
 class FormController extends PureComponent {
   handleSubmit = e => {
@@ -13,25 +13,16 @@ class FormController extends PureComponent {
 
   reset = () => this.props.form.resetFields();
 
-  redirect = () => {
-    const { submited, redirect } = this.props;
-    if (submited && redirect)
-      return <Redirect to={redirect} />
-  };
-
-  // faire le map props to field
   renderField = field => {
-    if (!field) return null; // un champ conditionnel pas validé
-
+    if (!field) return null;
     else if (field.type === Form.Item) {
       return cloneElement(field, { form: this.props.form });
     }
-
-    return cloneElement(field, {style: {margin: '0 0 1em'}});
+    return cloneElement(field, { style: { margin: '0 0 1em' } });
   };
 
   render() {
-    const { children, reset, progress } = this.props;
+    const { children, reset, loading } = this.props;
 
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -44,7 +35,7 @@ class FormController extends PureComponent {
             Reset
           </Button>
         }
-        {progress && <Progress percent={progress}/>}
+        <Spin spinning={loading}/>
       </Form>
     );
   }

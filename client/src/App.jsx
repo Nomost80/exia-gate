@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import configureStore from './store/configureStore';
+import history from './history';
 import Navbar from './components/shared/navbar/Navbar';
 import Body from './components/shared/Body';
 
@@ -16,9 +17,9 @@ const Root = () => (
 
 const App = () => (
   <Provider store={store}>
-    <BrowserRouter>
-      <Root />
-    </BrowserRouter>
+    <ConnectedRouter history={history}>
+      <Root/>
+    </ConnectedRouter>
   </Provider>
 );
 
